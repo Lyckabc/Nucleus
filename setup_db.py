@@ -5,16 +5,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def create_database_and_user():
+def create_database_and_user(new_db=None, new_user=None, new_pass=None):
     # 환경 변수 로드 (Docker Compose에서 주입)
     admin_user = os.getenv('DB_ADMIN_USER', 'postgres')
     admin_password = os.getenv('DB_ADMIN_PASSWORD')
     host = os.getenv('DB_ADMIN_HOST', 'localhost')
     port = os.getenv('DB_ADMIN_PORT', '5432')
     
-    new_db = os.getenv('NEW_DB_NAME')
-    new_user = os.getenv('NEW_DB_USER')
-    new_pass = os.path.expandvars(os.getenv('NEW_DB_PASSWORD'))
+    # 파라미터가 제공되지 않으면 환경 변수에서 가져오기
+    new_db = new_db or os.getenv('NEW_DB_NAME')
+    new_user = new_user or os.getenv('NEW_DB_USER')
+    new_pass = new_pass or os.path.expandvars(os.getenv('NEW_DB_PASSWORD'))
+    
+    # 필수 파라미터 검증
+    if not new_db or not new_user or not new_pass:
+        raise ValueError("new_db, new_user, and new_pass are required")
 
     try:
         # 1. 관리자(postgres) DB에 연결
@@ -53,6 +58,7 @@ def create_database_and_user():
 
     except Exception as e:
         print(f"Error: {e}")
+        raise
 
 if __name__ == "__main__":
     create_database_and_user()
