@@ -1,0 +1,16 @@
+# 가상 환경 및 캐시
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# 환경 변수 (보안 중요)
+.env
+.env.local
+.env.*.local
+
+# Docker 및 로그
+*.log
+.docker/
