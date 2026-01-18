@@ -1,6 +1,9 @@
 import os
 import psycopg2
 from psycopg2 import sql
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def create_database_and_user():
     # 환경 변수 로드 (Docker Compose에서 주입)
