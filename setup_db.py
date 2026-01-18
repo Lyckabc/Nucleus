@@ -9,8 +9,8 @@ def create_database_and_user():
     # 환경 변수 로드 (Docker Compose에서 주입)
     admin_user = os.getenv('DB_ADMIN_USER', 'postgres')
     admin_password = os.getenv('DB_ADMIN_PASSWORD')
-    host = os.getenv('DB_HOST', 'DB_ADMIN_HOST')
-    port = os.getenv('DB_PORT', 'DB_ADMIN_PORT')
+    host = os.getenv('DB_ADMIN_HOST', 'localhost')
+    port = os.getenv('DB_ADMIN_PORT', '5432')
     
     new_db = os.getenv('NEW_DB_NAME')
     new_user = os.getenv('NEW_DB_USER')
